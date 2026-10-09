@@ -1,0 +1,6 @@
+# YOLO26 提议器参数（现场调这里，无需重编译）
+input_size: 1280       # 输入分辨率（小球用高分辨率，640 更快但漏小球）
+conf_thresh: 0.3      # YOLO 置信度阈值，越低越容易出框（但误检也变多）
+nms_thresh: 0.45       # NMS 重叠抑制阈值
+class_id: 0            # 单类 shuttle 的类别 id
+num_classes: 1         # 类别数

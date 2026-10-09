@@ -1,0 +1,13 @@
+# 阻力模型 EKF 预测器参数（DragPredictor）
+# 现场调：sigma_pos 按 z²/(f·b) 缩放，sigma_accel 决定对机动的响应带宽。
+
+g: 9.81                 # 重力
+sigma_accel: 30.0       # 加速度过程噪声(m/s²)，越大越"相信"机动
+sigma_k: 0.05           # 阻力系数随机游走噪声
+sigma_pos: 0.03         # 位置观测噪声(m)，按距离缩放后传入更准
+sigma_range: 0.20       # 尺寸测距噪声(m)
+k_init: 0.22            # 阻力系数初值（终速 6.7 m/s → g/vt² ≈ 0.22）
+nis_threshold: 9.0      # 卡方门控阈值（3D@95%≈7.8，给点余量）
+hit_height: 0.90        # 击球高度(m)，intercept() 默认值
+min_updates: 10         # 收敛所需最少有效更新数
+max_ring: 256            # 回放环快照数（150Hz 下≈1.7s 历史）

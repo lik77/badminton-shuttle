@@ -1,0 +1,16 @@
+# 白球检测器参数（ShuttleDetector）
+# 现场只需改这份文件，无需重编译。
+
+bright_thresh: 160.0      # 亮度阈值（use_otsu 为 true 时忽略）
+use_otsu: false            # 每帧 Otsu 自适应，抗工频闪烁
+min_diameter_px: 5        # 尺寸先验窗口（宽松；锁定后用预测 Z 收紧）
+#max_diameter_px: 60
+max_diameter_px: 90
+#min_roundness: 0.6
+min_roundness: 0.3     # 4πA/P²，去条状/灯管反光
+
+box_margin: 16            # 候选框外扩像素（含精修余量）
+proposer_period: 1        # 每 N 帧调一次 YOLO，其余复用上框
+motion_expand: 40.0       # 复用框时外扩(px)
+#max_jump_px: 80.0         # 锁定后离预测点超此值判为噪声
+max_jump_px: 120.0 

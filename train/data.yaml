@@ -1,0 +1,8 @@
+# 白球数据集（已合并为单类 shuttle）
+path: /home/liki/Badminton Perception/shuttle/train/roboflow
+train: train/images
+val: valid/images
+test: test/images
+
+nc: 1
+names: ['shuttle']

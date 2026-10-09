@@ -1,0 +1,38 @@
+# 双组双目配置 + 外参（运行前改这里）
+#
+# 坐标系：
+#   每组双目三角化输出【光轴系】：+X右、+Y下、+Z深度。
+#   EKF 用【世界系】：+X前、+Y左、+Z上（重力在 -Z）。
+#   R_c2w 把 wide 光轴系转到世界系；R_t2w/t_t2w 把 tele 光轴系转到 wide 光轴系。
+
+wide:
+  name: "wide_8mm"
+  left_serial: "WIDE_LEFT_SERIAL"     # 8mm 左相机序列号
+  right_serial: "WIDE_RIGHT_SERIAL"   # 8mm 右相机序列号
+  exposure_us: 4000.0
+  gain: 16.0
+  fps: 120
+  external_trigger: false        # 硬触发(Line0)
+  stereo_yaml: "configs/stereo_wide.yaml"
+  rectifier_xml: "stereo_maps_wide.xml"
+
+tele:
+  name: "tele_16mm"
+  left_serial: "TELE_LEFT_SERIAL"     # 16mm 左相机序列号
+  right_serial: "TELE_RIGHT_SERIAL"   # 16mm 右相机序列号
+  exposure_us: 4000.0
+  gain: 16.0
+  fps: 120
+  external_trigger: false        # 硬触发(Line0)
+  stereo_yaml: "configs/stereo_tele.yaml"
+  rectifier_xml: "stereo_maps_tele.xml"
+
+# wide 光轴系 → 世界系（+X前/+Y左/+Z上）。默认假设相机水平前视。
+# 上机后用手眼标定/IMU 修正俯仰角。
+R_c2w: [0, 0, 1,  -1, 0, 0,  0, -1, 0]
+
+# tele 光轴系 → wide 光轴系（两组外参，由 calibrate_rig_extrinsics.py 标定后填）
+R_t2w: [0.99980, -0.00341, 0.01978, 0.00473, 0.99772, -0.06736, -0.01951, 0.06744, 0.99753]
+t_t2w: [0.00227, 0.03303, 0.04531]
+
+handoff_dist: 5.0   # 米；超过用 tele 为主(远场精轨迹)，近于用 wide 为主(近场高频)
